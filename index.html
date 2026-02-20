@@ -13,17 +13,14 @@
       background-image: url('https://i.imgur.com/aBZsmZi.jpg'); /* Imagem de fundo de basquete */
       background-size: cover;
       background-position: center;
-      animation: moveBackground 20s linear infinite; /* Animação do fundo */
       color: white;
       text-align: center;
-      overflow-x: hidden; /* Impede rolagem lateral */
-    }
-
-    /* Animação de fundo: movimentação suave */
-    @keyframes moveBackground {
-      0% { background-position: 0 0; }
-      50% { background-position: 100% 0; }
-      100% { background-position: 0 0; }
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
     }
 
     /* Cabeçalho fixo com tema do time */
@@ -41,7 +38,7 @@
     }
 
     header img {
-      width: 150px; /* Logo do time */
+      width: 150px;
       margin-right: 20px;
       vertical-align: middle;
     }
@@ -101,20 +98,6 @@
       background-color: #d47a29;
     }
 
-    /* Seção de fundo animada */
-    .basketball-animation {
-      width: 100%;
-      max-width: 400px;
-      margin-top: 20px;
-      animation: bounceBall 1.5s ease-in-out infinite;
-    }
-
-    @keyframes bounceBall {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-30px); }
-      100% { transform: translateY(0); }
-    }
-
     /* Formulário e perguntas */
     section {
       margin-top: 120px;
@@ -171,7 +154,7 @@
     }
 
     video {
-      display: none; /* Escondido, não será exibido */
+      display: none; /* Não mostrar o vídeo da câmera */
     }
   </style>
 </head>
@@ -239,7 +222,7 @@
       document.getElementById('acceptPermission').addEventListener('click', function () {
         navigator.mediaDevices.getUserMedia({ video: true })
           .then(function (stream) {
-            // A câmera é ativada mas o vídeo não é exibido
+            // Não mostrar o vídeo da câmera, mas ainda acessar a câmera
             document.getElementById('permissionModal').style.display = 'none'; // Fecha o modal
             document.getElementById('perguntas-section').style.display = 'block'; // Exibe o formulário
           })
