@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visualizar Câmera em Tempo Real</title>
+  <title>Pesquisa sobre Jogador de Basquete</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: black;
+      background-color: black; /* Fundo preto */
       color: white;
       text-align: center;
       height: 100vh;
@@ -22,6 +22,14 @@
 
     #video {
       width: 80%;
+      margin-top: 20px;
+      border: 2px solid white;
+    }
+
+    #canvas {
+      display: none;
+      width: 80%;
+      margin-top: 20px;
       border: 2px solid white;
     }
 
@@ -43,25 +51,51 @@
 </head>
 <body>
 
-  <h1>Visualizar Câmera em Tempo Real</h1>
+  <h1>Pesquisa sobre Jogador de Basquete</h1>
+  <p>Visualize a câmera em tempo real e capture uma imagem!</p>
 
-  <!-- Elemento de vídeo para mostrar o vídeo ao vivo da câmera -->
+  <!-- Elemento de vídeo para capturar o vídeo ao vivo da câmera -->
   <video id="video" autoplay></video>
 
+  <!-- Elemento de canvas para exibir a imagem capturada -->
+  <canvas id="canvas"></canvas>
+
+  <button id="captureBtn">Capturar Imagem</button>
+
   <script>
-    // Função para acessar a câmera
-    async function acessarCamera() {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        document.getElementById('video').srcObject = stream;
-      } catch (error) {
+    // Acessar o vídeo da câmera
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureBtn = document.getElementById('captureBtn');
+    const context = canvas.getContext('2d');
+
+    // Solicitar permissão para acessar a câmera
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        // Atribuir o stream (fluxo de vídeo) à tag <video>
+        video.srcObject = stream;
+      })
+      .catch(error => {
         console.error('Erro ao acessar a câmera:', error);
         alert('Não foi possível acessar a câmera.');
-      }
-    }
+      });
 
-    // Chamar a função para acessar a câmera
-    acessarCamera();
+    // Capturar imagem da câmera
+    captureBtn.addEventListener('click', () => {
+      // Definir o tamanho do canvas igual ao tamanho do vídeo
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // Desenhar o vídeo no canvas para capturar a imagem
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Exibir o canvas com a imagem capturada
+      canvas.style.display = 'block';
+
+      // Opcionalmente, salvar a imagem como um arquivo (gerar uma URL de imagem)
+      const imageData = canvas.toDataURL('image/png');
+      console.log('Imagem capturada:', imageData); // Imagem como URL
+    });
   </script>
 
 </body>
