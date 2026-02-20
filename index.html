@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesquisa sobre Jogador de Basquete</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+      transition: background-color 0.3s ease;
+      background-image: url('https://www.example.com/basketball-background.jpg'); /* Fundo de basquete */
+      background-size: cover;
+      color: white;
+    }
+
+    /* Cabeçalho fixo e moderno com tema do time */
+    header {
+      background-color: #1a1a1a; /* Cor escura */
+      padding: 20px 20px;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      font-family: 'Verdana', sans-serif;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 15px;
+      margin: 0 20px;
+      font-size: 20px;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #fcbf49; /* Cor dourada (como uma bola de basquete) */
+      border-radius: 5px;
+    }
+
+    section {
+      padding: 150px 20px 20px 20px;
+      opacity: 0;
+      animation: fadeIn 1s forwards;
+    }
+
+    /* Efeito de fade-in */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.7); /* Caixa semi-transparente */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      margin: 20px auto;
+      transition: transform 0.3s ease;
+    }
+
+    .form-container:hover {
+      transform: scale(1.05);
+    }
+
+    .form-container h2 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #fcbf49; /* Cor dourada */
+    }
+
+    .form-container input, .form-container select, .form-container textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .form-container input:focus, .form-container select:focus, .form-container textarea:focus {
+      border-color: #fcbf49;
+      background-color: #333;
+    }
+
+    .form-container button {
+      background-color: #fcbf49;
+      color: black;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-container button:hover {
+      background-color: #d47a29; /* Cor mais escura */
+    }
+
+    video {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+    }
+
+    .thank-you-message {
+      display: none;
+      font-size: 24px;
+      color: #fcbf49;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .team-logo {
+      width: 200px;
+      margin-top: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabeçalho com menu de navegação -->
+  <header>
+    <nav>
+      <a href="#perguntas">Perguntas</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <!-- Seção de introdução -->
+  <section id="sobre">
+    <h1>Pesquisa sobre o Jogador de Basquete</h1>
+    <p>Queremos saber mais sobre como as pessoas se conectam com o jogador e com o time.</p>
+    <img src="https://www.example.com/team-logo.png" alt="Logo do Time" class="team-logo"> <!-- Logo do time -->
+  </section>
+
+  <!-- Seção de perguntas -->
+  <section id="perguntas">
+    <div class="form-container">
+      <h2>Responda às perguntas abaixo:</h2>
+      <form id="formPesquisa">
+
+        <!-- Pergunta 1: Nome -->
+        <label for="nome">Qual o seu nome?</label>
+        <input type="text" id="nome" required>
+
+        <!-- Pergunta 2: Idade -->
+        <label for="idade">Qual a sua idade?</label>
+        <input type="number" id="idade" required>
+
+        <!-- Pergunta 3: Como nos conhecemos? -->
+        <label for="conhece">Como você conhece o jogador?</label>
+        <input type="text" id="conhece" required>
+
+        <!-- Pergunta 4: Qual sua relação com o jogador? -->
+        <label for="relacao">Qual sua relação com o jogador?</label>
+        <select id="relacao">
+          <option value="amigo">Amigo</option>
+          <option value="namorado">Namorado</option>
+          <option value="parente">Parente</option>
+        </select>
+
+        <!-- Pergunta 5: Por que você indica o jogador a ser federado? -->
+        <label for="indicacao">Por que você indicaria o jogador para ser federado?</label>
+        <textarea id="indicacao" required></textarea>
+
+        <!-- Botão de envio -->
+        <button type="submit">Enviar Respostas</button>
+      </form>
+
+      <div class="thank-you-message" id="thankYouMessage">
+        <h2>Obrigado pela sua participação!</h2>
+        <p>Você fez a diferença para nosso time. Vamos continuar ganhando!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção para acessar a câmera -->
+  <section>
+    <h2>Permitir Acesso à Câmera</h2>
+    <p>Para finalizar, nos mostre sua energia de fã! Clique no botão abaixo para permitir o acesso à sua câmera.</p>
+    <button id="acessoCamera">Pedir Permissão para Câmera</button>
+    <video id="video" autoplay></video>
+  </section>
+
+  <!-- Script para lidar com a câmera e enviar o formulário -->
+  <script>
+    // Pedir permissão para a câmera
+    document.getElementById('acessoCamera').addEventListener('click', function() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          document.getElementById('video').srcObject = stream;
+        })
+        .catch(function(error) {
+          alert('Erro ao acessar a câmera: ' + error.message);
+        });
+    });
+
+    // Submissão do formulário
+    document.getElementById('formPesquisa').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const idade = document.getElementById('idade').value;
+      const conhece = document.getElementById('conhece').value;
+      const relacao = document.getElementById('relacao').value;
+      const indicacao = document.getElementById('indicacao').value;
+
+      // Exibir mensagem de agradecimento
+      document.getElementById('thankYouMessage').style.display = 'block';
+      
+      // Aqui você pode adicionar código para salvar ou enviar as respostas para um servidor
+
+      // Resetar o formulário
+      event.target.reset();
+    });
+  </script>
+
+</body>
+</html>
