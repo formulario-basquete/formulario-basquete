@@ -1,4 +1,4 @@
-m<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
@@ -47,7 +47,7 @@ m<!DOCTYPE html>
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0, 0, 0, 0.5);
       z-index: 1001;
     }
 
@@ -58,6 +58,7 @@ m<!DOCTYPE html>
       width: 70%;
       border-radius: 10px;
       text-align: center;
+      font-size: 18px;
     }
 
     .modal-content h2 {
@@ -179,11 +180,11 @@ m<!DOCTYPE html>
   <!-- Modal de permissão para a câmera -->
   <div id="permissionModal">
     <div class="modal-content">
-      <h2>Permissão para Câmera</h2>
+      <h2>Permitir acesso à câmera</h2>
       <p>Para continuar a pesquisa, precisamos acessar a sua câmera. Você autoriza?</p>
       <div class="button-group">
-        <button id="acceptPermission">Sim, autorizar</button>
-        <button id="denyPermission">Não, obrigado</button>
+        <button id="acceptPermission">Permitir</button>
+        <button id="denyPermission">Negar</button>
       </div>
     </div>
   </div>
@@ -238,4 +239,37 @@ m<!DOCTYPE html>
             document.getElementById('video').srcObject = stream;
             document.getElementById('video').style.display = 'block';  // Exibe o vídeo
             document.getElementById('permissionModal').style.display = 'none'; // Fecha o modal
-            document.getElementById
+            document.getElementById('perguntas-section').style.display = 'block'; // Exibe a seção do formulário
+          })
+          .catch(function (error) {
+            alert('Erro ao acessar a câmera: ' + error.message);
+          });
+      });
+
+      // Quando o usuário negar a permissão
+      document.getElementById('denyPermission').addEventListener('click', function () {
+        alert('Acesso à câmera negado. Não será possível continuar a pesquisa.');
+        document.getElementById('permissionModal').style.display = 'none'; // Fecha o modal
+      });
+
+      // Lógica do formulário
+      document.getElementById('formPesquisa').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const nome = document.getElementById('nome').value;
+        const idade = document.getElementById('idade').value;
+        const conhece = document.getElementById('conhece').value;
+        const relacao = document.getElementById('relacao').value;
+        const indicacao = document.getElementById('indicacao').value;
+
+        // Exibir mensagem de agradecimento
+        document.getElementById('thankYouMessage').style.display = 'block';
+
+        // Resetar o formulário
+        event.target.reset();
+      });
+    });
+  </script>
+
+</body>
+</html>
