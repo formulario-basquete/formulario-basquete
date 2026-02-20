@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pesquisa sobre Jogador de Basquete</title>
+  <title>Capturar Câmera sem Exibir</title>
   <style>
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: black; /* Fundo preto */
+      background-color: black;
       color: white;
       text-align: center;
       height: 100vh;
@@ -20,17 +20,9 @@
       overflow-x: hidden;
     }
 
+    /* O vídeo estará escondido */
     #video {
-      width: 80%;
-      margin-top: 20px;
-      border: 2px solid white;
-    }
-
-    #canvas {
-      display: none;
-      width: 80%;
-      margin-top: 20px;
-      border: 2px solid white;
+      display: none; /* Escondendo o vídeo */
     }
 
     button {
@@ -47,80 +39,26 @@
     button:hover {
       background-color: #d47a29;
     }
-
-    section {
-      margin-top: 40px;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 800px;
-      width: 100%;
-    }
-
-    h2 {
-      color: #fcbf49;
-      margin-bottom: 20px;
-    }
-
-    .form-container input,
-    .form-container select,
-    .form-container textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 18px;
-    }
-
-    .form-container button {
-      background-color: #fcbf49;
-      color: black;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 18px;
-      transition: background-color 0.3s;
-    }
-
-    .form-container button:hover {
-      background-color: #d47a29;
-    }
-
-    .thank-you-message {
-      display: none;
-      font-size: 24px;
-      color: #fcbf49;
-      text-align: center;
-      margin-top: 20px;
-    }
   </style>
 </head>
 <body>
 
-  <h1>Visualizar Câmera em Tempo Real</h1>
+  <h1>Câmera sem Exibição</h1>
+  <p>O vídeo da sua câmera está sendo acessado, mas não será exibido.</p>
 
-  <!-- Elemento de vídeo para mostrar o vídeo ao vivo da câmera -->
+  <!-- Elemento de vídeo para acessar o fluxo da câmera, mas escondido -->
   <video id="video" autoplay></video>
 
-  <!-- Elemento de canvas para exibir a imagem capturada -->
-  <canvas id="canvas"></canvas>
-
-  <!-- Botão para capturar a imagem -->
   <button id="captureBtn">Capturar Imagem</button>
 
   <script>
-    // Acessar o vídeo da câmera
     const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
     const captureBtn = document.getElementById('captureBtn');
-    const context = canvas.getContext('2d');
-
+    
     // Solicitar permissão para acessar a câmera
     navigator.mediaDevices.getUserMedia({ video: true })
       .then(stream => {
-        // Atribuir o stream (fluxo de vídeo) à tag <video>
+        // Atribuir o stream (fluxo de vídeo) à tag <video> sem exibi-lo
         video.srcObject = stream;
       })
       .catch(error => {
@@ -128,8 +66,12 @@
         alert('Não foi possível acessar a câmera.');
       });
 
-    // Capturar imagem da câmera ao clicar no botão
+    // Capturar imagem ao clicar no botão (se necessário)
     captureBtn.addEventListener('click', () => {
+      // Agora você pode capturar o conteúdo do vídeo, mesmo sem exibi-lo
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+
       // Definir o tamanho do canvas igual ao tamanho do vídeo
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
@@ -137,65 +79,9 @@
       // Desenhar o vídeo no canvas para capturar a imagem
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-      // Exibir o canvas com a imagem capturada
-      canvas.style.display = 'block';
-
-      // Opcionalmente, salvar a imagem como um arquivo (gerar uma URL de imagem)
+      // Exibir a imagem ou fazer algo com a imagem capturada (como salvar)
       const imageData = canvas.toDataURL('image/png');
-      console.log('Imagem capturada:', imageData); // Imagem como URL (base64)
-    });
-  </script>
-
-  <!-- Seção de perguntas -->
-  <section id="perguntas-section">
-    <h2>Responda às perguntas abaixo:</h2>
-    <div class="form-container">
-      <form id="formPesquisa">
-        <label for="nome">Qual o seu nome?</label>
-        <input type="text" id="nome" required>
-
-        <label for="idade">Qual a sua idade?</label>
-        <input type="number" id="idade" required>
-
-        <label for="conhece">Como você conhece o jogador?</label>
-        <input type="text" id="conhece" required>
-
-        <label for="relacao">Qual a sua relação com o jogador?</label>
-        <select id="relacao">
-          <option value="amigo">Amigo</option>
-          <option value="namorado">Namorado</option>
-          <option value="parente">Parente</option>
-        </select>
-
-        <label for="indicacao">Por que você indicaria o jogador para ser federado?</label>
-        <textarea id="indicacao" required></textarea>
-
-        <button type="submit">Enviar Respostas</button>
-      </form>
-    </div>
-
-    <div class="thank-you-message" id="thankYouMessage">
-      <h2>Obrigado pela sua participação!</h2>
-      <p>Você ajudou a nossa pesquisa a crescer. Vamos continuar com a nossa jornada no basquete!</p>
-    </div>
-  </section>
-
-  <script>
-    // Lógica do formulário
-    document.getElementById('formPesquisa').addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const nome = document.getElementById('nome').value;
-      const idade = document.getElementById('idade').value;
-      const conhece = document.getElementById('conhece').value;
-      const relacao = document.getElementById('relacao').value;
-      const indicacao = document.getElementById('indicacao').value;
-
-      // Exibir mensagem de agradecimento
-      document.getElementById('thankYouMessage').style.display = 'block';
-
-      // Resetar o formulário
-      event.target.reset();
+      console.log('Imagem capturada:', imageData); // Imagem em formato base64
     });
   </script>
 
